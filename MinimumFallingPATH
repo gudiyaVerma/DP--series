@@ -1,0 +1,29 @@
+// In this particular problem ,there is variable strating point
+// Int the previous problem we have solved the problems based on fixed  starting points
+// Variable starting point means that starting point can be anywhere from the first row and ending point can be any point at the last row 
+
+class Solution {
+public: 
+        int func(int i , int j ,vector<vector<int>>& matrix,int m ){
+            if(j>=m || j<0)return 1e9;
+            if(i==0  )return matrix[0][j];
+            
+          
+            int up =   matrix[i][j]+func(i-1,j,matrix,m);
+            int left = matrix[i][j]+func(i-1,j-1,matrix,m);
+            int right= matrix[i][j]+func(i-1,j+1,matrix,m);
+            return min(up,min(left,right));
+         
+            }
+    
+        int minFallingPathSum(vector<vector<int>>& matrix) {
+        int n = matrix.size();
+        int m = matrix[0].size();
+             int mini =1e9;
+             for(int j=0; j<m;j++){
+                  int ans = func(n-1,j,matrix,m);
+                  mini = min(mini,ans);
+                        }
+                  return mini;
+             }
+};
